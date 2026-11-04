@@ -36,8 +36,7 @@ sync_now() { (cd "$INSTALL_DIR" && docker compose run --rm clippy-music-sync pyt
 
 # True once $1 succeeds, within about four minutes.
 wait_for() {
-  local attempt
-  for attempt in $(seq 1 48); do
+  for _ in $(seq 1 48); do
     if eval "$1" >/dev/null 2>&1; then return 0; fi
     sleep 5
   done

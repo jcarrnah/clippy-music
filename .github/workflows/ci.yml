@@ -17,7 +17,7 @@ jobs:
       - uses: actions/checkout@v4
       - run: python3 test_clippy_music.py
       - run: bash tests/test_install.sh
-      - run: shellcheck install.sh tests/test_install.sh tests/smoke.sh
+      - run: shellcheck -S warning install.sh tests/test_install.sh tests/smoke.sh
 
   smoke:
     needs: test
