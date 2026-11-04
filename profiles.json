@@ -1,0 +1,29 @@
+{
+  "lidarr": {
+    "name": "Clippy Music",
+    "upgradeAllowed": true,
+    "cutoff": "Lossless",
+    "groups": [
+      { "name": "Lossless", "qualities": ["FLAC 24bit", "ALAC 24bit", "FLAC", "ALAC"] },
+      { "name": "320", "qualities": ["MP3-320", "AAC-320"] },
+      { "name": "V0", "qualities": ["MP3-VBR-V0", "AAC-VBR"] },
+      { "name": "256", "qualities": ["MP3-256", "AAC-256"] },
+      { "name": "192", "qualities": ["MP3-VBR-V2", "MP3-192", "AAC-192"] },
+      { "name": "Low", "qualities": ["MP3-160", "MP3-128"] }
+    ]
+  },
+  "vidarr": [
+    {
+      "name": "Clippy Music Video 1080p",
+      "tag": "videos",
+      "cutoff": "1080p",
+      "allowed": ["1080p", "720p", "YouTube", "SD"]
+    },
+    {
+      "name": "Clippy Music Video 4K",
+      "tag": "videos-4k",
+      "cutoff": "2160p",
+      "allowed": ["2160p", "1080p", "720p", "YouTube", "SD"]
+    }
+  ]
+}

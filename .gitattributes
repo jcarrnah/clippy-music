@@ -1,0 +1,6 @@
+* text=auto eol=lf
+.github export-ignore
+tests export-ignore
+test_clippy_music.py export-ignore
+.gitattributes export-ignore
+.gitignore export-ignore

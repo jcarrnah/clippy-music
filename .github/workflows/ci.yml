@@ -1,0 +1,41 @@
+name: CI
+
+# Pushing a v* tag publishes a release, but only after the real-container test passes.
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 test_clippy_music.py
+      - run: bash tests/test_install.sh
+      - run: shellcheck install.sh tests/test_install.sh tests/smoke.sh
+
+  smoke:
+    needs: test
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo --preserve-env=PATH bash tests/smoke.sh
+
+  release:
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: smoke
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - run: git archive --format=tar.gz -o clippy-music.tar.gz HEAD
+      - run: gh release create "$GITHUB_REF_NAME" install.sh clippy-music.tar.gz --title "$GITHUB_REF_NAME" --notes-file RELEASE_NOTES.md
+        env:
+          GH_TOKEN: ${{ github.token }}
